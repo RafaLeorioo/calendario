@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Euros a Dólares</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #fff;
+        }
+        .container {
+            margin-top: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 1.2em;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Convertidor de Euros a Dólares</h1>
+        <label for="euros">Cantidad en Euros:</label><br>
+        <input type="number" id="euros" placeholder="Introduce euros"><br>
+        <button onclick="convertir()">Convertir</button>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function convertir() {
+            const tasaCambio = 1.1; // Ejemplo: 1 euro = 1.1 dólares
+            const euros = parseFloat(document.getElementById('euros').value);
+            if (isNaN(euros) || euros <= 0) {
+                document.getElementById('resultado').textContent = "Por favor, introduce una cantidad válida.";
+                return;
+            }
+            const dolares = euros * tasaCambio;
+            document.getElementById('resultado').textContent = `${euros} euros son ${dolares.toFixed(2)} dólares.`;
+        }
+    </script>
+</body>
+</html>
