@@ -66,16 +66,43 @@
         <p id="resultado"></p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
     <script>
-        function convertir() {
-            const tasaCambio = 1.1; // Ejemplo: 1 euro = 1.1 dólares
+        // Configura tu URL y la clave pública de Supabase
+        const supabaseUrl = 'https://cwpahjebfmqaebtvovpb.supabase.co';  // Cambia esto por tu URL de Supabase
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3cGFoamViZm1xYWVidHZvdnBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ0NjMzMzUsImV4cCI6MjA2MDAzOTMzNX0.lNXPxcoQ9KFuiAwQJcDt1SuLXVqx5fVtKjntwbmitQI';  // Cambia esto por tu clave pública
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Función para convertir y guardar en la base de datos
+        async function convertir() {
             const euros = parseFloat(document.getElementById('euros').value);
             if (isNaN(euros) || euros <= 0) {
                 document.getElementById('resultado').textContent = "Por favor, introduce una cantidad válida.";
                 return;
             }
+
+            // Convertir a dólares
+            const tasaCambio = 1.1;
             const dolares = euros * tasaCambio;
             document.getElementById('resultado').textContent = `${euros} euros son ${dolares.toFixed(2)} dólares.`;
+
+            // Guardar en la base de datos
+            try {
+                const { data, error } = await supabase
+                    .from('events')
+                    .insert([
+                        { euros: euros, dolares: dolares, timestamp: new Date() } // Inserta los valores en la tabla `events`
+                    ]);
+                
+                if (error) {
+                    throw error;
+                }
+
+                console.log('Evento guardado:', data);
+            } catch (error) {
+                console.error('Error al guardar el evento:', error.message);
+                document.getElementById('resultado').textContent = "Hubo un error al guardar el evento. Intenta de nuevo.";
+            }
         }
     </script>
 </body>
