@@ -92,6 +92,15 @@
             background: linear-gradient(90deg, #2563eb, #3b82f6);
         }
 
+        .time-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .time-container div {
+            flex: 1;
+        }
+
         .calendar-container {
             overflow: hidden;
         }
@@ -298,6 +307,10 @@
                 border-radius: 6px;
             }
 
+            .time-container {
+                gap: 8px;
+            }
+
             .calendar-container, .detail-view {
                 padding: 15px;
                 margin-bottom: 15px;
@@ -393,6 +406,10 @@
                 padding: 10px;
             }
 
+            .time-container {
+                gap: 6px;
+            }
+
             .calendar-container h2 {
                 font-size: 1.2rem;
             }
@@ -419,10 +436,16 @@
             <form id="eventForm">
                 <label for="eventDate">Date</label>
                 <input type="date" id="eventDate" required>
-                <label for="startTime">Start Time</label>
-                <input type="time" id="startTime" required>
-                <label for="endTime">End Time</label>
-                <input type="time" id="endTime" required>
+                <div class="time-container">
+                    <div>
+                        <label for="startTime">Start Time</label>
+                        <input type="time" id="startTime" required>
+                    </div>
+                    <div>
+                        <label for="endTime">End Time</label>
+                        <input type="time" id="endTime" required>
+                    </div>
+                </div>
                 <label for="observations">Observations (optional)</label>
                 <textarea id="observations" placeholder="Enter any observations"></textarea>
                 <button type="submit">Add Event</button>
