@@ -33,12 +33,6 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             padding: 25px;
             margin-bottom: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-container:hover, .calendar-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .form-container h2, .calendar-container h2 {
@@ -394,8 +388,8 @@
                 delete events[date];
             }
             localStorage.setItem('events', JSON.stringify(events));
-            renderCalendar(); // Actualiza el calendario para quitar el punto rojo si no hay eventos
-            renderEventList(date); // Actualiza la lista de eventos en la vista de detalles
+            renderCalendar();
+            renderEventList(date);
         }
 
         function changeDay(date, direction) {
@@ -426,6 +420,12 @@
             const startTime = document.getElementById('startTime').value;
             const endTime = document.getElementById('endTime').value;
             const observations = document.getElementById('observations').value;
+
+            // Validar que la hora de finalización no sea anterior o igual a la de inicio
+            if (endTime <= startTime) {
+                alert('The end time cannot be earlier than or equal to the start time. Please adjust the times and try again.');
+                return;
+            }
 
             if (!events[date]) {
                 events[date] = [];
